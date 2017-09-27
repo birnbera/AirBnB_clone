@@ -1,0 +1,8 @@
+# Editor extensions
+*~
+\#*\#
+
+# Python files
+__pycache__/
+*.pyc
+*.pyo
