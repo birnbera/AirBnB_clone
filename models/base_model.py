@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """class BaseModel"""
 
-import json
+from models import storage
 import uuid
 from datetime import datetime
 class BaseModel:
@@ -16,6 +16,8 @@ class BaseModel:
             if k == "__class__":
                 continue
             setattr(self, k, v)
+        if "id" not in kwargs:
+            storage.new(self)
 
     def __str__(self):
         return "[{}] ({}) {}".format(self.__class__.__name__,
@@ -23,6 +25,7 @@ class BaseModel:
 
     def save(self):
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
        	d = {}
