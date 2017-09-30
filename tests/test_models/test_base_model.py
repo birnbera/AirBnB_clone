@@ -72,7 +72,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertCountEqual(d.keys(), expected_attrs)
         self.assertEqual(d['__class__'], 'BaseModel')
         self.assertEqual(d['name'], "Holberton")
-        self.assertEqual(d['my_number'] = 89)
+        self.assertEqual(d['my_number'], 89)
 
     def test_date(self):
         """Test use of datetime for `created_at` attribute"""
@@ -82,11 +82,59 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(type(my_model.updated_at) == type(now))
         self.assertEqual(my_model.created_at, my_model.updated_at)
         delta = now - my_model.created_at
-        self.assertAlmostEqual(delta.total_seconds(), 0.0, delta = 1e-2)
+        self.assertAlmostEqual(delta.total_seconds(), 0.0, delta = 1e-3)
 
     def test_save(self):
         """Test of the save method, which updates `updated_at` attribute"""
         my_model = BaseModel()
         self.assertEqual(my_model.created_at, my_model.updated_at)
         my_model.save()
-        self.assertNotEqual(my_model.created_at, my_model.updated_at)
+        delta = my_model.updated_at - my_model.created_at
+        self.assertGreater(delta, 0)
+
+    def test_str(self):
+        """Test __str__ method of BaseModel"""
+        my_model = BaseModel()
+        self.assertEqual(my_model.__str__(),
+                         "[BaseModel] "
+                         "{} ".format(my_model.id),
+                         "{}" .format(my_model.to_dict()))
+
+    def test_kwargs(self):
+        """Test use of **kwargs to instantiate instance"""
+        kwargs = {'id': uuid.uuid4(),
+                  'name': "Holberton",
+                  'created_at': datetime(1985, 24, 6, 20, 7, 19, 7879)
+                  'updated_at': datetime(1999, 25, 12, 20, 7, 19, 7879)
+                  'my_number': 89}
+        my_model = BaseModel(**kwargs)
+        for k in kwargs:
+            with self.subTest(k=k):
+                self.assertEqual(getattr(my_model, k), kwargs[k])
+
+        del kwargs['created_at']
+        del kwargs['updated_at']
+        del kwargs['id']
+        my_model2 = BaseModel(**kwargs)
+        now = datetime.now()
+        for k in kwargs:
+            with self.subTest(k=k):
+                self.assertEqual(getattr(my_model, k), kwargs[k])
+        self.assertNotEqual(my_model.id, my_model2.id)
+        self.assertNotEqual(my_model.created_at, my_model2.created_at)
+        self.assertNotEqual(my_model.updated_at, my_model2.updated_at)
+        self.assertEqual(my_model.name, my_model2.name)
+        self.assertEqual(my_model.my_number, my_model2.my_number)
+
+    def test_create_from_dict(self):
+        """Test creation from dictionary"""
+        kwargs = {'id': str(uuid.uuid4()),
+                  'created_at': datetime(1985, 24, 6, 20, 7, 19, 7879)
+                  .isoformat(),
+                  'updated_at': datetime(1999, 25, 12, 20, 7, 19, 7879)
+                  .isoformat(),
+                  'my_number': 666,
+                  'name': "Holbetty",
+                  'temp': "HOT HOT HOT"}
+        my_model = BaseModel(**kwargs)
+        
