@@ -25,6 +25,16 @@ class BaseModel:
         if "id" not in kwargs:
             models.storage.new(self)
 
+    def __setattr__(self, name, value):
+        if name in ['created_at', 'updated_at']:
+            if isinstance(value, str):
+                try:
+                    value = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
+                except:
+                    print("cannot set datetime with: {}".format(value))
+                    return
+        super().__setattr__(name, value)
+
     def __str__(self):
         """returns __str__ method"""
         return "[{}] ({}) {}".format(self.__class__.__name__,

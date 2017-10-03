@@ -4,8 +4,6 @@
 import models
 import json
 
-str_to_class_d = {}
-
 def models_obj_hook(o_dict):
     """imports BaseModel from models and returns dict"""
     try:
@@ -44,7 +42,6 @@ class FileStorage:
         """deserializes the JSON file"""
         try:
             with open(self.__file_path, 'r') as f:
-                self.__objects = json.load(f,
-                                           object_hook=models_obj_hook)
+                self.__objects = json.load(f, object_hook=models_obj_hook)
         except:
             pass

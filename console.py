@@ -114,12 +114,6 @@ class HBNBCommand(cmd.Cmd):
             except IndexError:
                 print("** value missing **")
                 return
-            if attr in ['created_at', 'updated_at']:
-                try:
-                    val = datetime.strptime(val, '%Y-%m-%dT%H:%M:%S.%f')
-                except:
-                    print("cannot set datetime with: {}".format(val))
-                    return
             setattr(obj, attr, val)
             obj.save()
 
