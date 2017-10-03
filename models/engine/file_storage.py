@@ -1,9 +1,22 @@
 #!/usr/bin/python3
 """Store first object"""
 
-
+import models
 import json
 
+str_to_class_d = {}
+
+def models_obj_hook(o_dict):
+    """imports BaseModel from models and returns dict"""
+    try:
+        cls = o_dict['__class__']
+    except KeyError:
+        return o_dict
+    else:
+        try:
+            return getattr(models, cls)(**o_dict)
+        except AttributeError:
+            return o_dict
 
 class FileStorage:
     """created private class attributes"""
@@ -22,32 +35,16 @@ class FileStorage:
     def save(self):
         """serializes __objects to the JSON file"""
         with open(self.__file_path, 'w') as f:
+            jdict = {}
             for name, obj in self.__objects.items():
-                self.__objects[name] = obj.to_dict()
-            json.dump(self.all(), f)
+                jdict[name] = obj.to_dict()
+            json.dump(jdict, f)
 
     def reload(self):
         """deserializes the JSON file"""
         try:
             with open(self.__file_path, 'r') as f:
-                self.__objects = json.load(f, object_hook=self.models_obj_hook)
+                self.__objects = json.load(f,
+                                           object_hook=models_obj_hook)
         except:
             pass
-
-        """
-        else:
-            for name, obj_dict in self.__objects.items():
-                self.__objects[name] = eval(obj['__class__'])(**obj)
-        """
-
-    @staticmethod
-    def models_obj_hook(o_dict):
-        """imports BaseModel from models and returns dict"""
-        if '__class__' in o_dict:
-            if o_dict['__class__'] == 'BaseModel':
-                from models.base_model import BaseModel
-                return BaseModel(**o_dict)
-            else:
-                return o_dict
-        else:
-            return o_dict

@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """Import FileStorage and read existing data into `storage` variable"""
 
-from models.engine.file_storage import FileStorage
-storage = FileStorage()
+from models.engine import file_storage
+from models.base_model import BaseModel
+
+storage = file_storage.FileStorage()
 storage.reload()

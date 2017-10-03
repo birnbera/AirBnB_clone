@@ -1,11 +1,9 @@
 #!/usr/bin/python3
 """class BaseModel"""
 
-
-from models import storage
+import models
 import uuid
 from datetime import datetime
-
 
 class BaseModel:
     def __init__(self, *args, **kwargs):
@@ -16,12 +14,16 @@ class BaseModel:
         for k, v in kwargs.items():
             """searches through dict for keys"""
             if k in ['created_at', 'updated_at']:
-                v = datetime.strptime(v, '%Y-%m-%dT%H:%M:%S.%f')
-            if k == "__class__":
+                try:
+                    v = datetime.strptime(v, '%Y-%m-%dT%H:%M:%S.%f')
+                except:
+                    print("cannot set datetime with: {}".format(v))
+                    raise
+            elif k == "__class__":
                 continue
             setattr(self, k, v)
         if "id" not in kwargs:
-            storage.new(self)
+            models.storage.new(self)
 
     def __str__(self):
         """returns __str__ method"""
@@ -31,7 +33,7 @@ class BaseModel:
     def save(self):
         """updates the public instance attribute updated_at"""
         self.updated_at = datetime.now()
-        storage.save()
+        models.storage.save()
 
     def to_dict(self):
         """returns a dictionary containing all k/v of __dict__"""
