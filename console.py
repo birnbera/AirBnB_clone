@@ -6,21 +6,42 @@ import cmd
 import re
 import models
 
+
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
 
     def do_EOF(self, line):
-        """End of file - quits console"""
+        """
+        EOF:
+        End of file. Exits the console.
+        """
         return True
 
     def do_quit(self, line):
-        """quits console"""
+        """
+        quit:
+        Exits the console.
+        """
         return True
 
     def emptyline(self):
         pass
 
     def do_create(self, line):
+        """
+        create:
+
+        Creates a new instance of BaseModel, saves it and prints the id.
+
+        This method breaks a string of arguments down into smaller chunks,
+        or strings. It will try to return the value of the named attribute.
+        That will be stored, saved, and printed. If the named attribute
+        doesn't exist, AttributeError is raised and "** class doesn't exist **"
+        will be printed to the screen.
+
+        If the class name is missing, "** class name missing **" will be
+        printed to the screen.
+        """
         if len(line) == 0:
             print("** class name missing **")
         else:
@@ -35,6 +56,23 @@ class HBNBCommand(cmd.Cmd):
             print(obj.id)
 
     def do_show(self, line):
+        """
+        show:
+
+        Prints the string representation of an instance - class name and id
+
+        This method splits the arguments into smaller strings before the
+        arguments are used. If the length of the arguments is less than two,
+        "** instance id missing **" will print to the screen since more than
+        one argument is needed. However, if an appropriate amount of arguments
+        is available, the result of class name and id will print to the screen.
+        Otherwise, KeyError will be raised and "** no instance found **" will
+        be printed to the screen.
+
+        If the class name is missing, "** class name missing **" will be
+        printed to the screen. If the class name doesn't exist, "** class
+        doesn't exist **" will be printed to the screen. 
+        """
         if len(line) == 0:
             print("** class name missing **")
         else:
@@ -52,6 +90,18 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
 
     def do_destroy(self, line):
+        """
+        destroy:
+
+        Deletes an instance based on the class name and id.
+
+        In order for the destroy method to work, it will need two arguments. The
+        arguments will be broken
+
+        If the class name is missing, "** class name missing **" will be printed to
+        the screen. If class name doesn't exist, "** class doesn't exist **" will
+        be printed to the screen.
+        """
         if len(line) == 0:
             print("** class name missing **")
         else:
