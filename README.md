@@ -70,7 +70,13 @@ To destroy a User, use the "destroy" command. The command takes in two arguments
 ** no instance found **
 ```
 
-The "all" command prints all string representation of all instances and the "update" command 
+The "all" command prints all string representation of all instances and the "update" command is used to update the User information. In the example below, the first name is updated to "Betty". Everything can be updated except the id, created and updated datetime.
+
+```
+(hbnb) update BaseModel 49faff9a-6318-451f-87b6-910505c55907 first_name "Betty"
+(hbnb) show BaseModel 49faff9a-6318-451f-87b6-910505c55907
+[BaseModel] (49faff9a-6318-451f-87b6-910505c55907) {'first_name': 'Betty', 'id': '49faff9a-6318-451f-87b6-910505c55907', 'created_at': datetime.datetime(2017, 10, 2, 3, 10, 25, 903293), 'updated_at': datetime.datetime(2017, 10, 2, 3, 11, 3, 49401)}
+```
 
 ## Requirements for Python scripts
 
@@ -145,7 +151,7 @@ Functions:
 
 In the models file:
 
-0. [__init__.py](models/__init__.py) - file that connects File_storage, console, and Basemodel together.
+0. [__init__.py](./models/__init__.py) - file that connects File_storage, console, and Basemodel together.
 1. [amenity.py](models/amenity.py) - class amenity that inherits from BaseModel
 2. [base_model.py](models/base_model.py) - BaseModel framework that other classes inherit from.
 3. [city.py](models/city.py) - class city that inherits from BaseModel
