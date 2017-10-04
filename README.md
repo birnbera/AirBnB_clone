@@ -145,7 +145,7 @@ Functions:
 
 In the models file:
 
-0. [__init__.py]("__init__.py") - file that connects File_storage, console, and Basemodel together.
+0. ["__init__.py"](__init__.py) - file that connects File_storage, console, and Basemodel together.
 1. [amenity.py](amenity.py) - class amenity that inherits from BaseModel
 2. [base_model.py](base_model.py) - BaseModel framework that other classes inherit from.
 3. [city.py](city.py) - class city that inherits from BaseModel
@@ -156,7 +156,7 @@ In the models file:
 
 In the engine folder:
 
-0. [../file_storage.py](file_storage.py) - contains file saving storage information
+0. [file_storage.py](models/engine/file_storage.py) - contains file saving storage information
 
 ## Authors
 * **Andrew Birnbera** [LinkedIn](https://www.linkedin.com/in/andrew-birnberg/)
