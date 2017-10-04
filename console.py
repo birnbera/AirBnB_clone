@@ -169,7 +169,8 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
 
     def do_BaseModel(self, line):
-        pass
+        if line.startswith('.all'):
+            pass
 
     def do_User(self, line):
         pass
@@ -188,6 +189,10 @@ class HBNBCommand(cmd.Cmd):
 
     def do_Review(self, line):
         pass
+
+def parse(args):
+    pattern = '^\.[a-zA-Z0-9_]+|\(
+    pass
 
 if __name__ == '__main__':
     """command loop"""
