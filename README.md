@@ -145,14 +145,14 @@ Functions:
 
 In the models file:
 
-0. ["__init__.py"](__init__.py) - file that connects File_storage, console, and Basemodel together.
-1. [amenity.py](amenity.py) - class amenity that inherits from BaseModel
-2. [base_model.py](base_model.py) - BaseModel framework that other classes inherit from.
-3. [city.py](city.py) - class city that inherits from BaseModel
-4. [place.py](place.py) - class place that inherits from BaseModel
-5. [review.py](review.py) - class review that inherits from BaseModel
-6. [state.py](state.py) - class state that inherits from BaseModel
-7. [user.py](user.py) - class user that inherits from BaseModel
+0. [__init__.py](models/__init__.py) - file that connects File_storage, console, and Basemodel together.
+1. [amenity.py](models/amenity.py) - class amenity that inherits from BaseModel
+2. [base_model.py](models/base_model.py) - BaseModel framework that other classes inherit from.
+3. [city.py](models/city.py) - class city that inherits from BaseModel
+4. [place.py](models/place.py) - class place that inherits from BaseModel
+5. [review.py](models/review.py) - class review that inherits from BaseModel
+6. [state.py](models/state.py) - class state that inherits from BaseModel
+7. [user.py](models/user.py) - class user that inherits from BaseModel
 
 In the engine folder:
 
