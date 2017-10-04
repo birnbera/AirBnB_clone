@@ -98,12 +98,13 @@ class HBNBCommand(cmd.Cmd):
 
         Deletes an instance based on the class name and id.
 
-        In order for the destroy method to work, it will need two arguments. The
-        arguments will be broken
-
-        If the class name is missing, "** class name missing **" will be printed to
-        the screen. If class name doesn't exist, "** class doesn't exist **" will
-        be printed to the screen.
+        This method requires two arguments, a class name and id. If the class
+        name is missing, "** class name missing **" will be printed to the screen.
+        If class name doesn't exist, "** class doesn't exist **" will be printed
+        to the screen. If class name does exist, then the command will search for
+        the id, or the second argument. If the id is missing, IndexError is raised
+        and "** instance id missing **" will print to the screen. However, if found,
+        the instance will be deleted. 
         """
         if len(line) == 0:
             print("** class name missing **")
@@ -125,6 +126,16 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
 
     def do_all(self, line):
+        """
+        all:
+
+        Prints all string representation of all instances based or not on the class
+        name.
+
+        This method will print out the string representation of the value of every
+        instance of a class or not a class. If the class doesn't exist, "** class
+        doesn't exist **" will print to the screen.
+        """
         if len(line) == 0:
             print([str(v) for v in models.storage.all().values()])
         elif line not in models.class_dict:
@@ -134,6 +145,23 @@ class HBNBCommand(cmd.Cmd):
                    if line in k])
 
     def do_update(self, line):
+        """
+        update:
+
+        Updates an instance based on the class name and id by adding or updating
+        attribute.
+
+        This method can only update one attribute at a time. Attributes "created_at",
+        "updated_at", and "id" can't be updated with this method. 
+
+        If the class name is missing, "** class name missing **" is printed to the
+        screen. If the class name doesn't exist, print "** class doesn't exist **".
+
+        If id is missing, "** instance id missing **" is printed to the screen. If
+        the attribute name is missing, "** attribute name missing **" will be
+        printed to the screen. If the value for the attribute name doesn't exist,
+        "** value missing **"
+        """
         if len(line) == 0:
             print("** class name missing **")
         else:
