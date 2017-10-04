@@ -39,8 +39,8 @@ class HBNBCommand(cmd.Cmd):
         This method breaks a string of arguments down into smaller chunks,
         or strings. It will try to return the value of the named attribute.
         That will be stored, saved, and printed. If the named attribute
-        doesn't exist, AttributeError is raised and "** class doesn't exist **"
-        will be printed to the screen.
+        doesn't exist, KeyError is raised and handled before "** class
+        doesn't exist **" is printed to the screen.
 
         If the class name is missing, "** class name missing **" will be
         printed to the screen.
@@ -65,15 +65,16 @@ class HBNBCommand(cmd.Cmd):
 
         This method splits the arguments into smaller strings before the
         arguments are used. If the length of the arguments is less than two,
-        "** instance id missing **" will print to the screen since more than
-        one argument is needed. However, if an appropriate amount of arguments
-        is available, the result of class name and id will print to the screen.
-        Otherwise, KeyError will be raised and "** no instance found **" will
-        be printed to the screen.
+        IndexError is raised, handled, and "** instance id missing **" will
+        print to the screen since more than one argument is needed. However,
+        if an appropriate amount of arguments is available, the result of
+        class name and id will print to the screen. Otherwise, KeyError
+        will be raised, handled and "** no instance found **" will be printed
+        to the screen.
 
         If the class name is missing, "** class name missing **" will be
         printed to the screen. If the class name doesn't exist, "** class
-        doesn't exist **" will be printed to the screen. 
+        doesn't exist **" will be printed to the screen.
         """
         if len(line) == 0:
             print("** class name missing **")
@@ -99,12 +100,12 @@ class HBNBCommand(cmd.Cmd):
         Deletes an instance based on the class name and id.
 
         This method requires two arguments, a class name and id. If the class
-        name is missing, "** class name missing **" will be printed to the screen.
-        If class name doesn't exist, "** class doesn't exist **" will be printed
-        to the screen. If class name does exist, then the command will search for
-        the id, or the second argument. If the id is missing, IndexError is raised
-        and "** instance id missing **" will print to the screen. However, if found,
-        the instance will be deleted. 
+        name is missing, "** class name missing **" will be printed to the
+        screen. If class name doesn't exist, "** class doesn't exist **"
+        will be printed to the screen. If class name does exist, then the
+        command will search for the id, or the second argument. If the id is
+        missing, IndexError is raised and "** instance id missing **" will
+        print to the screen. However, if found, the instance will be deleted.
         """
         if len(line) == 0:
             print("** class name missing **")
@@ -129,12 +130,12 @@ class HBNBCommand(cmd.Cmd):
         """
         all:
 
-        Prints all string representation of all instances based or not on the class
-        name.
+        Prints all string representation of all instances based or not on
+        the class name.
 
-        This method will print out the string representation of the value of every
-        instance of a class or not a class. If the class doesn't exist, "** class
-        doesn't exist **" will print to the screen.
+        This method will print out the string representation of the value
+        of every instance of a class or not a class. If the class doesn't
+        exist, "** class doesn't exist **" will print to the screen.
         """
         if len(line) == 0:
             print([str(v) for v in models.storage.all().values()])
@@ -148,19 +149,21 @@ class HBNBCommand(cmd.Cmd):
         """
         update:
 
-        Updates an instance based on the class name and id by adding or updating
-        attribute.
+        Updates an instance based on the class name and id by adding or
+        updating attribute.
 
-        This method can only update one attribute at a time. Attributes "created_at",
-        "updated_at", and "id" can't be updated with this method. 
+        This method can only update one attribute at a time. Attributes
+        "created_at", "updated_at", and "id" should't be updated with this
+        method. 
 
-        If the class name is missing, "** class name missing **" is printed to the
-        screen. If the class name doesn't exist, print "** class doesn't exist **".
+        If the class name is missing, "** class name missing **" is printed
+        to the screen. If the class name doesn't exist, print "** class
+        doesn't exist **".
 
-        If id is missing, "** instance id missing **" is printed to the screen. If
-        the attribute name is missing, "** attribute name missing **" will be
-        printed to the screen. If the value for the attribute name doesn't exist,
-        "** value missing **"
+        If id is missing, "** instance id missing **" is printed to the screen.
+        If the attribute name is missing, "** attribute name missing **"
+        will be printed to the screen. If the value for the attribute name doesn't
+        exist, "** value missing **" will print to screen.
         """
         if len(line) == 0:
             print("** class name missing **")
