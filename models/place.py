@@ -1,10 +1,13 @@
 #!/usr/bin/python3
-"""class Place that inherits from Basemodel"""
+"""Implements class Place that inherits from Basemodel"""
 
 import models
 
+
 class Place(models.BaseModel):
+    """Class to store place information"""
     def __init__(self, *args, **kwargs):
+        """Initialize new instance of Place from *args and **kwargs"""
         self.city_id = kwargs.pop('city_id', "")
         self.user_id = kwargs.pop('user_id', "")
         self.name = kwargs.pop('name', "")
@@ -19,14 +22,27 @@ class Place(models.BaseModel):
         super().__init__(*args, **kwargs)
 
     def __setattr__(self, name, value):
+        """Maintain correct types for non-string attributes while keeping
+        the attributes as public attributes.
+
+        Args:
+            name (str): name of attribute
+            value: value to associate with `name`
+
+        Raises:
+            AttributeError: If value cannot be parsed into correct format
+        """
         if name in ['number_rooms', 'number_bathrooms',
                     'max_guest', 'price_by_night']:
-            if isinstance(value, str) and value.isdecimal():
+            try:
                 value = int(value)
-                super().__setattr__(self, name, value)
+            except ValueError:
+                raise AttributeError("Invalid value: ({}) for name: ({})"
+                                     .format(value, name))
         elif name in ['latitude', 'longitude']:
-            if isinstance(value, str) and value.isdecimal():
+            try:
                 value = float(value)
-                super().__setattr__(self, name, value)
-        else:
-            super().__setattr__(self, name, value)
+            except ValueError:
+                raise AttributeError("Invalid value: ({}) for name: ({})"
+                                     .format(value, name))
+        super().__setattr__(name, value)
