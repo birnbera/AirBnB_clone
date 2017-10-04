@@ -197,30 +197,49 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
 
     def do_BaseModel(self, line):
-        if line.startswith('.all'):
-            pass
+        cmd, args = parse(line)
+        self.onecmd(' '.join([cmd, 'BaseModel', args]))
 
     def do_User(self, line):
-        pass
+        cmd, args = parse(line)
+        self.onecmd(' '.join([cmd, 'User', args]))
 
     def do_State(self, line):
-        pass
+        cmd, args = parse(line)
+        self.onecmd(' '.join([cmd, 'State', args]))
 
     def do_City(self, line):
-        pass
+        cmd, args = parse(line)
+        self.onecmd(' '.join([cmd, 'City', args]))
 
     def do_Amenity(self, line):
-        pass
+        cmd, args = parse(line)
+        self.onecmd(' '.join([cmd, 'Amenity', args]))
 
     def do_Place(self, line):
-        pass
+        cmd, args = parse(line)
+        self.onecmd(' '.join([cmd, 'Place', args]))
 
     def do_Review(self, line):
-        pass
+        cmd, args = parse(line)
+        self.onecmd(' '.join([cmd, 'Review', args]))
 
-def parse(args):
-    pattern = '^\.[a-zA-Z0-9_]+|\(
-    pass
+def parse(line):
+    """Parse method-like command.
+
+    Args:
+        line (str): method call with arguments (e.g. `.all(arg1, arg2)`
+    """
+    pattern = '\.([^.]+)\(|[\s,()]*([^(),]+)[\s,()]*'
+    args = re.findall(pattern, line)
+    cmd = args[0][0]
+    try:
+        args = args[1:]
+    except IndexError:
+        line = ''
+    else:
+        line = ' '.join(map(lambda x: x[1].strip('"'), args))
+    return cmd, line
 
 if __name__ == '__main__':
     """command loop"""
