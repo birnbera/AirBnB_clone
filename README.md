@@ -156,7 +156,7 @@ In the models file:
 
 In the engine folder:
 
-0. [file_storage.py](file_storage.py) - contains file saving storage information
+0. [models/engine/file_storage.py](file_storage.py) - contains file saving storage information
 
 ## Authors
 * **Andrew Birnbera** [LinkedIn](https://www.linkedin.com/in/andrew-birnberg/)
