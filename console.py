@@ -201,7 +201,7 @@ class HBNBCommand(cmd.Cmd):
                                     setattr(obj, attr, val)
                                 except AttributeError:
                                     print("** cannot set val: {}".format(val)
-                                          " for attr: ({}) **".format(attr))
+                                          + " for attr: ({}) **".format(attr))
                                 else:
                                     obj.save()
             else:
