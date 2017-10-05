@@ -4,6 +4,7 @@
 import models
 import json
 
+
 def models_obj_hook(o_dict):
     """imports BaseModel from models and returns dict"""
     try:
@@ -15,6 +16,7 @@ def models_obj_hook(o_dict):
             return getattr(models, cls)(**o_dict)
         except AttributeError:
             return o_dict
+
 
 class FileStorage:
     """created private class attributes"""
