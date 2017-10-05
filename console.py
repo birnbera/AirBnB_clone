@@ -8,6 +8,7 @@ import models
 
 
 class HBNBCommand(cmd.Cmd):
+    """Command console class"""
     prompt = '(hbnb) '
 
     def precmd(self, line):
@@ -28,6 +29,8 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def emptyline(self):
+        """If line is empty don't do anything (as opposed to execute previous
+        command)."""
         pass
 
     def do_create(self, line):
@@ -154,7 +157,7 @@ class HBNBCommand(cmd.Cmd):
 
         This method can only update one attribute at a time. Attributes
         "created_at", "updated_at", and "id" should't be updated with this
-        method. 
+        method.
 
         If the class name is missing, "** class name missing **" is printed
         to the screen. If the class name doesn't exist, print "** class
@@ -162,8 +165,8 @@ class HBNBCommand(cmd.Cmd):
 
         If id is missing, "** instance id missing **" is printed to the screen.
         If the attribute name is missing, "** attribute name missing **"
-        will be printed to the screen. If the value for the attribute name doesn't
-        exist, "** value missing **" will print to screen.
+        will be printed to the screen. If the value for the attribute name
+        doesn't exist, "** value missing **" will print to screen.
         """
         if len(line) == 0:
             print("** class name missing **")
@@ -194,38 +197,100 @@ class HBNBCommand(cmd.Cmd):
                             except IndexError:
                                 print("** value missing **")
                             else:
-                                setattr(obj, attr, val)
-                                obj.save()
+                                try:
+                                    setattr(obj, attr, val)
+                                except AttributeError:
+                                    print("** cannot set val: {}".format(val)
+                                          " for attr: ({}) **".format(attr))
+                                else:
+                                    obj.save()
             else:
                 print("** class doesn't exist **")
 
     def do_BaseModel(self, line):
+        """Usage: BaseModel.<cmd>([args, ...])
+
+        `cmd` can be any of:
+            all, show, update, destroy, or create
+
+        Arguments are the same and in the same order as for other
+        commands.
+        """
         cmd, args = parse(line)
         self.onecmd(' '.join([cmd, 'BaseModel', args]))
 
     def do_User(self, line):
+        """Usage: User.<cmd>([args, ...])
+
+        `cmd` can be any of:
+            all, show, update, destroy, or create
+
+        Arguments are the same and in the same order as for other
+        commands.
+        """
         cmd, args = parse(line)
         self.onecmd(' '.join([cmd, 'User', args]))
 
     def do_State(self, line):
+        """Usage: State.<cmd>([args, ...])
+
+        `cmd` can be any of:
+            all, show, update, destroy, or create
+
+        Arguments are the same and in the same order as for other
+        commands.
+        """
         cmd, args = parse(line)
         self.onecmd(' '.join([cmd, 'State', args]))
 
     def do_City(self, line):
+        """Usage: City.<cmd>([args, ...])
+
+        `cmd` can be any of:
+            all, show, update, destroy, or create
+
+        Arguments are the same and in the same order as for other
+        commands.
+        """
         cmd, args = parse(line)
         self.onecmd(' '.join([cmd, 'City', args]))
 
     def do_Amenity(self, line):
+        """Usage: Amenity.<cmd>([args, ...])
+
+        `cmd` can be any of:
+            all, show, update, destroy, or create
+
+        Arguments are the same and in the same order as for other
+        commands.
+        """
         cmd, args = parse(line)
         self.onecmd(' '.join([cmd, 'Amenity', args]))
 
     def do_Place(self, line):
+        """Usage: Place.<cmd>([args, ...])
+
+        `cmd` can be any of:
+            all, show, update, destroy, or create
+
+        Arguments are the same and in the same order as for other
+        commands.
+        """
         cmd, args = parse(line)
         self.onecmd(' '.join([cmd, 'Place', args]))
 
     def do_Review(self, line):
+        """Usage: Review.<cmd>([args, ...])
+
+        `cmd` can be any of:
+            all, show, update, destroy, or create
+
+        Arguments are the same and in the same order as for other
+        commands.
+        """
         cmd, args = parse(line)
         self.onecmd(' '.join([cmd, 'Review', args]))
+
 
 def parse(line):
     """Parse method-like command.
@@ -243,6 +308,7 @@ def parse(line):
     else:
         line = ' '.join(map(lambda x: x[1].strip('"'), args))
     return cmd, line
+
 
 if __name__ == '__main__':
     """command loop"""
