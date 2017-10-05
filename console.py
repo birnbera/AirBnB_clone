@@ -207,6 +207,21 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** class doesn't exist **")
 
+    def do_count(self, line):
+        """
+        Usage: count [<class>]
+
+        Count the number of instances of `class` if provided, otherwise
+        the total number of instances in memory.
+        """
+        if len(line) == 0:
+            print(len([str(v) for v in models.storage.all().values()]))
+        elif line not in models.class_dict:
+            print("** class doesn't exist **")
+        else:
+            print(len([str(v) for k, v in models.storage.all().items()
+                        if line in k]))
+
     def do_BaseModel(self, line):
         """Usage: BaseModel.<cmd>([args, ...])
 
