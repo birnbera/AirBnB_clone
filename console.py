@@ -220,7 +220,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
             print(len([str(v) for k, v in models.storage.all().items()
-                        if line in k]))
+                       if line in k]))
 
     def do_BaseModel(self, line):
         """Usage: BaseModel.<cmd>([args, ...])
