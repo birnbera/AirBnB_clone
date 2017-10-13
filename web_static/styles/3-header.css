@@ -1,0 +1,19 @@
+header {
+	display: block;
+	position: fixed;
+	background-color: #FFFFFF;
+	border-bottom: 1px solid #CCCCCC;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	height: 70px;
+	width: 100%;
+}
+
+#logo {
+	background: url("../images/logo.png") no-repeat center;
+	margin-left: 20px;
+	padding-top: 10px;
+	width: 142px;
+	height: 60px;
+}
