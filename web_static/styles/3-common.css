@@ -1,5 +1,4 @@
 body {
-<<<<<<< HEAD
     margin: 0;
     padding: 0;
     color: #484848;
@@ -10,11 +9,8 @@ body {
 p {
     text-align: center;
     vertical-align: middle;
-=======
-	background-color: #FFFFFF;
-	color: #484848;
-	font-size: 14px;
-	font-family: Circular, "Helvetica Neue", Helvetica, Arial, sans-serif;
-	margin-bottom: 60px;
->>>>>>> dcff292b782475800366461ff8accd6a8f2b5843
+}
+
+div {
+    flex: 1 0 auto;
 }
