@@ -413,4 +413,3 @@
 <li><code>styles/8-places.css</code>: for the places style</li>
 </ul></li>
 </ul><p><img alt="8-index" src="https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/268/8-index.png"/></p>
-
